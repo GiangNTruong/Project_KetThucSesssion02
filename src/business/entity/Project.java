@@ -10,13 +10,11 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
+import static business.designImpl.ManageContractImpl.contractList;
+import static business.designImpl.ManageEmployeeImplement.employeeList;
+
 public class Project implements Serializable {
-    static List<Contract> contractList;
-    static List<Employee> employeeList;
-    static {
-        contractList= IOFile.readFromFile(IOFile.CONTRACT_PATH);
-        employeeList=IOFile.readFromFile(IOFile.EMPLOYEE_PATH);
-    }
+
     private static final long serialVersionUID = 1L;
     private int projectId;
     private String projectName;

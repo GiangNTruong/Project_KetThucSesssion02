@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageDepartmentImpl implements ManagerDepartment {
-    static List<Department> departmentList ;
+    public static List<Department> departmentList ;
     static {
         departmentList = IOFile.readFromFile(IOFile.DEPARTMENT_PATH);
         if (departmentList==null){
@@ -32,6 +32,7 @@ public class ManageDepartmentImpl implements ManagerDepartment {
 
     @Override
     public void displayAllList() {
+        departmentList = IOFile.readFromFile(IOFile.DEPARTMENT_PATH);
         if (departmentList==null || departmentList.isEmpty()){
             System.err.println("KHông có phòng ban nào để hiển thị ");
             return;

@@ -8,13 +8,13 @@ public class MenuCustomer {
     private static RoleCustomer roleCustomer = new RoleCustomerImplement();
     public void displayMenuCustomer (){
      do {
-         System.out.println("================");
-         System.out.println("***Menu Khách hàng***");
-         System.out.println("===================");
-         System.out.println("1.Quản lý hợp đồng");
-         System.out.println("2. Quản lý tài khoản ");
-         System.out.println("3. Đăng xuất");
-         System.out.println("Vui lòng chọn từ 1-3");
+         System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"================"+Main.ANSI_RESET);
+         System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"***Menu Khách hàng***"+Main.ANSI_RESET);
+         System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"==================="+Main.ANSI_RESET);
+         System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"1.Quản lý hợp đồng"+Main.ANSI_RESET);
+         System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"2. Quản lý tài khoản "+Main.ANSI_RESET);
+         System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"3. Đăng xuất"+Main.ANSI_RESET);
+         System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"Vui lòng chọn từ 1-3"+Main.ANSI_RESET);
          byte choice = InputMethods.getByte();
          switch (choice){
              case 1:
@@ -24,10 +24,13 @@ public class MenuCustomer {
                  displayAccountCustomer();
                  break;
              case 3:
-                 Main.login();
+                 roleCustomer.logout();
                  break;
              default:
                  System.out.print("Nhập không hợp lệ , vui lòng nhập từ 1-3 : ");
+         }
+         if (choice==3){
+             break;
          }
      }while (true);
     }
@@ -65,17 +68,14 @@ public class MenuCustomer {
             byte choice = InputMethods.getByte();
             switch (choice) {
                 case 1:
+                    roleCustomer.viewPersonalInfo();
                     break;
                 case 2:
-                    System.out.println("Nhập tên đăng nhập:");
-                    String username = InputMethods.getString();
-                    roleCustomer.viewAccountInfo(username);
+                    roleCustomer.viewAccountInfo();
                     break;
                     
                 case 3:
-                    System.out.println("Nhập tên đăng nhập:");
-                    String usernameChangePass = InputMethods.getString();
-                    roleCustomer.changePassword(usernameChangePass);
+                    roleCustomer.changePassword();
                     break;
                 case 4:
                     System.out.println("Thoát chương trình");

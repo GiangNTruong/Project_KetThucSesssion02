@@ -10,18 +10,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static business.designImpl.RoleCustomerImplement.usersList;
+import static business.designImpl.ManageContractImpl.contractList;
+import static business.designImpl.ManageCustomerImpl.customerList;
+import static business.designImpl.ManageProjectImpl.projectList;
+import static business.designImpl.RoleCustomerImplement.usersLogin;
+
 
 public class RoleAdminImplement implements RoleAdmin {
     static List<Users>usersList;
-    static List<Customer> customerList;
-    static List<Contract> contractList;
-    static List<Project> projectList;
+
     static {
         usersList = IOFile.readFromFile(IOFile.USER_PATH);
-        contractList = IOFile.readFromFile(IOFile.CONTRACT_PATH);
-        customerList = IOFile.readFromFile(IOFile.CUSTOMER_PATH);
-        projectList = IOFile.readFromFile(IOFile.PROJECT_PATH);
         // kiem tra khoi tao khi userList null
         if (usersList == null){
             usersList = new ArrayList<>();
@@ -30,13 +29,22 @@ public class RoleAdminImplement implements RoleAdmin {
     }
     @Override
     public Users login(String username, String password) {
+        usersList = IOFile.readFromFile(IOFile.USER_PATH);
+        Users userLogin  = getUserFormUsername(username);
+        if (userLogin==null){
+            return null;
+        }
+        boolean checkLogin = BCrypt.checkpw(password,userLogin.getPassword()); // kiem tra mat khau khop hay khong
+        if (checkLogin){
+            return userLogin;
+        }
         return null;
     }
 
     @Override
-    public void logout(Users currentUser) {
-        usersList.remove(currentUser);
-        IOFile.writeToFile(IOFile.USER_PATH,usersList );
+    public void logout() {
+        usersLogin=null;
+        IOFile.writetoUserLogin(IOFile.USERLOGIN_PATH,usersLogin );
         System.out.println("Đã đăng xuất");
     }
 
@@ -134,6 +142,7 @@ public class RoleAdminImplement implements RoleAdmin {
     }
 
     private Users getUserFormUsername(String username){
+
         return usersList.stream().filter(users -> users.getUsername().equals(username)).findFirst().orElse(null);
     }
     private int getNewId(){

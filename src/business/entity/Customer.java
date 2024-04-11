@@ -1,13 +1,19 @@
 package business.entity;
 
+import business.utils.IOFile;
 import business.utils.InputMethods;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Customer implements Serializable {
+    static List<Users> usersList;
+    static {
+        usersList = IOFile.readFromFile(IOFile.CUSTOMER_PATH);
+    }
     private static final long serialVersionUID = 1L;
     private int customerId;
     private String customerName;
@@ -17,7 +23,20 @@ public class Customer implements Serializable {
     private String email;
     private String phoneNumber;
     private String note;
+
     private int priority;
+    private int userID;
+
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+
 
     public Customer() {
     }
@@ -109,6 +128,15 @@ public class Customer implements Serializable {
         System.out.println("Nhập mã KH:");
         this.customerId = InputMethods.getInteger();
     }
+    public void inputUserId(List<Users> users){
+        System.out.println("Danh sách userList ");
+        for (int i = 0; i < users.size() ; i++) {
+            System.out.println((i+1)+" . " + users.get(i).getUserId() + "-" + users.get(i).getUsername() + "-" + users.get(i).getRole());
+        }
+        System.out.print("Hãy nhập vị trí user bạn muốn chọn : ");
+       byte index = InputMethods.getByte();
+        this.userID = users.get(index-1).getUserId();
+    }
 
     public void inputCustomerName() {
         System.out.println("Nhập tên KH:");
@@ -172,10 +200,10 @@ public class Customer implements Serializable {
     public void displayData() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String priorityDescription = getPriorityCustomer();
-        System.out.printf("Mã KH: %d | Tên KH: %s | Ngày sinh: %s | Giới tính: %s | Địa chỉ: %s | Email: %s | Số điện thoại: %s | Ghi chú: %s | Độ ưu tiên: %d - %s\n",
+        System.out.printf("Mã KH: %d | Tên KH: %s | Ngày sinh: %s | Giới tính: %s | Địa chỉ: %s | Email: %s | Số điện thoại: %s | Ghi chú: %s | Độ ưu tiên: %d - %s | UserId : %d \n",
                 customerId, customerName, (birthday != null ? birthday.format(dtf) : "N/A"),
                 (sex ? "Nam" : "Nữ"),
-                address, email, phoneNumber, note, priority,priorityDescription);
+                address, email, phoneNumber, note, priority,priorityDescription,userID);
     }
     public String getPriorityCustomer() {
         switch (priority) {

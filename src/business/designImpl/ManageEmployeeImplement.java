@@ -11,19 +11,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import static business.designImpl.ManageDepartmentImpl.departmentList;
+
 public class ManageEmployeeImplement implements ManageEmployee {
     public static List<Employee> employeeList ;
-    public static List<Department> departmentList ;
     static {
         employeeList = IOFile.readFromFile(IOFile.EMPLOYEE_PATH);
-        departmentList = IOFile.readFromFile(IOFile.DEPARTMENT_PATH);
         // kiem tra khoi tao khi userList null
         if (employeeList==null){
             employeeList = new ArrayList<>();
         }
-        if (departmentList==null){
-            departmentList = new ArrayList<>();
-        }
+
     }
     @Override
     public void addNew() {
@@ -46,6 +44,7 @@ public class ManageEmployeeImplement implements ManageEmployee {
 
     @Override
     public void displayAllList() {
+        employeeList = IOFile.readFromFile(IOFile.EMPLOYEE_PATH);
         if (employeeList==null || employeeList.isEmpty()){
             System.err.println("Khong có nhan viên nào để hiển thị ");
             return;

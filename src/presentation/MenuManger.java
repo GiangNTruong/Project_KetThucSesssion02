@@ -6,6 +6,7 @@ import business.designImpl.*;
 import business.utils.InputMethods;
 
 public class MenuManger {
+    static RoleAdmin roleAdmin = new RoleAdminImplement();
     static ManagerDepartment managerDepartment = new ManageDepartmentImpl();
     static ManageEmployee manageEmployee = new ManageEmployeeImplement();
     static ManagerCustomer managerCustomer = new ManageCustomerImpl();
@@ -13,17 +14,16 @@ public class MenuManger {
     static ManageProject manageProject = new ManageProjectImpl();
     public void displayMenuManager() {
         while (true) {
-            System.out.println("====================");
-            System.out.println("**Menu quản lý**");
-            System.out.println("====================");
-            System.out.println("1. Quản lý Phòng ban");
-            System.out.println("2. Quản lý nhân viên");
-            System.out.println("3. Quản lý khách hàng");
-            System.out.println("4. Quản lý hợp đồng");
-            System.out.println("5. Quản lý dự án");
-            System.out.println("6. Đăng xuât");
-            System.out.println("--------------------");
-            System.out.print("Chọn chức năng: ");
+
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"====================Menu quản lý===================="+Main.ANSI_RESET);
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"1. Quản lý Phòng ban"+Main.ANSI_RESET);
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"2. Quản lý nhân viên"+Main.ANSI_RESET);
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"3. Quản lý khách hàng"+Main.ANSI_RESET);
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"4. Quản lý hợp đồng"+Main.ANSI_RESET);
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"5. Quản lý dự án"+Main.ANSI_RESET);
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"6. Đăng xuât"+Main.ANSI_RESET);
+            System.out.println(Main.ANSI_CYAN+Main.BLACK_BG+"--------------------"+Main.ANSI_RESET);
+            System.out.print(Main.ANSI_CYAN+Main.BLACK_BG+"Chọn chức năng: "+Main.ANSI_RESET);
             byte choice = InputMethods.getByte();
             switch (choice) {
                 case 1:
@@ -45,10 +45,13 @@ public class MenuManger {
                     displayMenuProject();
                     break;
                 case 6:
-                    Main.login();
+                    roleAdmin.logout();
                     break;
                 default:
                     System.out.println("Lựa chọn không hợp lệ. Vui lòng chọn lại!");
+            }
+            if(choice == 6) {
+                break;
             }
 
         }
@@ -59,8 +62,7 @@ public class MenuManger {
         while (true){
             // Code hiển thị menu quản lý nhân viên
             System.out.println("====================");
-            System.out.println("**Menu quản lý phòng ban**");
-            System.out.println("====================");
+            System.out.println("====================Menu quản lý phòng ban====================");
             System.out.println("1. Thêm mới phòng ban");
             System.out.println("2. Xem danh sách phòng ban");
             System.out.println("3. Cập nhật thông tin phòng ban");
@@ -94,10 +96,8 @@ public class MenuManger {
     }
     private void displayMenuEmployee() {
       while (true){
-
           System.out.println("====================");
-          System.out.println("**Menu quản lý nhân viên**");
-          System.out.println("====================");
+          System.out.println("====================Menu quản lý nhân viên====================");
           System.out.println("1. Thêm mới nhân viên");
           System.out.println("2. Xem danh sách nhân viên");
           System.out.println("3. Cập nhật thông tin nhân viên");
@@ -136,8 +136,7 @@ public class MenuManger {
     private void displayMenuCustomer() {
         while (true){
             System.out.println("====================");
-            System.out.println("**Menu quản lý khách hàng**");
-            System.out.println("1. Thêm mới khách hàng");
+            System.out.println("====================Menu quản lý khách hàng====================");
             System.out.println("2. Xem danh sách khách hàng");
             System.out.println("3. Cập nhật thông tin khách hàng");
             System.out.println("4. Xóa khách hàng");
@@ -175,7 +174,7 @@ public class MenuManger {
     private void displayMenuContract() {
         while (true){
             System.out.println("====================");
-            System.out.println("**Menu quản lý hợp đồng**");
+            System.out.println("====================Menu quản lý hợp đồng====================");
             System.out.println("1. Thêm mới hợp đồng");
             System.out.println("2. Xem danh sách hợp đồng");
             System.out.println("3. Cập nhật thông tin hợp đồng");

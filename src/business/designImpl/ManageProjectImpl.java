@@ -11,14 +11,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static business.designImpl.ManageContractImpl.contractList;
+import static business.designImpl.ManageEmployeeImplement.employeeList;
+
 public class ManageProjectImpl implements ManageProject {
-    static List<Project> projectList;
-    static List<Contract> contractList;
-    static List<Employee> employeeList;
+   public static List<Project> projectList;
     static {
         projectList= IOFile.readFromFile(IOFile.PROJECT_PATH);
-        contractList= IOFile.readFromFile(IOFile.CONTRACT_PATH);
-        employeeList= IOFile.readFromFile(IOFile.EMPLOYEE_PATH);
         if (projectList==null){
             projectList= new ArrayList<>();
         }
@@ -47,6 +46,7 @@ public class ManageProjectImpl implements ManageProject {
 
     @Override
     public void displayAllList() {
+        projectList= IOFile.readFromFile(IOFile.PROJECT_PATH);
         if (projectList==null|| projectList.isEmpty()){
             System.err.println("Không có dự án nào để hiển thị");
             return;

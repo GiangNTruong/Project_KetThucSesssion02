@@ -4,6 +4,7 @@ import business.design.ManagerContract;
 import business.design.ManagerCustomer;
 import business.entity.Contract;
 import business.entity.Customer;
+import business.entity.Users;
 import business.utils.IOFile;
 import business.utils.InputMethods;
 
@@ -11,17 +12,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static business.designImpl.RoleCustomerImplement.usersList;
+
 public class ManageCustomerImpl implements ManagerCustomer {
     public static List<Customer> customerList;
+
     static {
         customerList = IOFile.readFromFile(IOFile.CUSTOMER_PATH);
         if (customerList==null){
             customerList = new ArrayList<>();
         }
+
     }
 
     @Override
     public void addNew() {
+        usersList = IOFile.readFromFile(IOFile.USER_PATH);
         System.out.println("Nhập số khách hàng thêm mới");
         int n = InputMethods.getInteger();
         for (int i = 0; i < n; i++) {
@@ -35,6 +41,7 @@ public class ManageCustomerImpl implements ManagerCustomer {
             newCustomer.inputPhoneNumber();
             newCustomer.inputNote();
             newCustomer.inputPriority();
+            newCustomer.inputUserId(usersList);
             customerList.add(newCustomer);
         }
         // Ghi danh sách khách hàng đã cập nhật vào file
@@ -44,6 +51,7 @@ public class ManageCustomerImpl implements ManagerCustomer {
 
     @Override
     public void displayAllList() {
+        customerList = IOFile.readFromFile(IOFile.CUSTOMER_PATH);
         if (customerList==null || customerList.isEmpty()){
             System.err.println("KO có khách hàng để hiển thi  ");
             return;

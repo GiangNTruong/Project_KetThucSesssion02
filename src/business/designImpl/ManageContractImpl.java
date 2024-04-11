@@ -11,21 +11,23 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static business.designImpl.ManageCustomerImpl.customerList;
+import static business.designImpl.ManageEmployeeImplement.employeeList;
+
+
+
 public class ManageContractImpl implements ManagerContract {
 
-    static List<Contract> contractList ;
-    static List<Employee> employeeList ;
-    static List<Customer> customerList ;
+    public static List<Contract> contractList ;
     static {
         contractList = IOFile.readFromFile(IOFile.CONTRACT_PATH);
-         employeeList= IOFile.readFromFile(IOFile.EMPLOYEE_PATH);
-         customerList= IOFile.readFromFile(IOFile.CUSTOMER_PATH);
         if (contractList==null){
             contractList = new ArrayList<>();
         }
     }
     @Override
     public void addNew() {
+
         System.out.println("Nhập số lượng hợp đồng bạn muốn thêm mới");
         byte n = InputMethods.getByte();
         for (int i = 0; i < n; i++) {
@@ -46,6 +48,7 @@ public class ManageContractImpl implements ManagerContract {
 
     @Override
     public void displayAllList() {
+        contractList = IOFile.readFromFile(IOFile.CONTRACT_PATH);
         if (contractList==null||contractList.isEmpty()){
             System.err.println("Không có hợp đồng nào để hiển thị");
             return;

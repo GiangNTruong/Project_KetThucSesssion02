@@ -9,15 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import static business.designImpl.ManageCustomerImpl.customerList;
+import static business.designImpl.ManageEmployeeImplement.employeeList;
+
 
 public class Contract implements Serializable {
-    static List<Customer> customerList ;
-    static List<Employee> employeeList;
-    static {
-        customerList = IOFile.readFromFile(IOFile.CUSTOMER_PATH);
-        employeeList = IOFile.readFromFile(IOFile.EMPLOYEE_PATH);
 
-    }
     private static final long serialVersionUID = 1L;
     private int contractId;
     private String contractName;
@@ -129,7 +126,7 @@ public class Contract implements Serializable {
     // Hàm để nhập mã nhân viên từ danh sách nhân viên
     public void inputEmployeeId(List<Employee> employees) {
         // Hiển thị danh sách nhân viên
-        System.out.println("Nhập nhân viên phụ trách:");
+        System.out.println("Nhập nhân viên phụ trách theo vị trí :");
         for (int i = 0; i < employees.size(); i++) {
             System.out.println((i + 1) + ". " + employees.get(i).getEmployeeId() + " - " + employees.get(i).getEmployeeName());
         }
@@ -142,7 +139,7 @@ public class Contract implements Serializable {
     // Hàm để nhập mã khách hàng từ danh sách khách hàng
     public void inputCustomerId(List<Customer> customers) {
 
-        System.out.println("Nhập khách hàng:");
+        System.out.println("Nhập khách hàng theo vị trí:");
         for (int i = 0; i < customers.size(); i++) {
             System.out.println((i + 1) + ". " + customers.get(i).getCustomerId() + " - " + customers.get(i).getCustomerName());
         }
@@ -203,10 +200,7 @@ public class Contract implements Serializable {
         int priorityContractInt = getPriorityContractInt();
 
         // Tìm khách hàng từ customerId
-        Customer customer = customerList.stream()
-                .filter(c -> c.getCustomerId() == this.customerId)
-                .findFirst()
-                .orElse(null);
+        Customer customer = customerList.stream().filter(c -> c.getCustomerId() == this.customerId).findFirst().orElse(null);
 
         String customerName = customer != null ? customer.getCustomerName() : "N/A";
 

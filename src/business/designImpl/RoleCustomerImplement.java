@@ -135,34 +135,65 @@ public class RoleCustomerImplement implements RoleCustomer {
 
     @Override
     public void viewContract() {
-        if (contractList==null || contractList.isEmpty()){
-            System.err.println("Không có hợp đồng nào để hiển thị");
+        // Tìm kiếm customer tương ứng với userId
+        usersLogin = IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
+        Customer currentUser = customerList.stream().filter(customer -> customer.getUserID() == usersLogin.getUserId()).findFirst().orElse(null);
+
+        // Nếu không tìm thấy customer, in thông báo và thoát
+        if (currentUser == null) {
+            System.out.println("Không tìm thấy khách hàng tương ứng với tài khoản này.");
             return;
         }
-        System.out.println(" Danh sách hợp đồng ");
-        for (Contract contract : contractList){
-            if (contract.getCustomerId() == usersLogin.getUserId()) {
-                contract.displayData();
-            }
+
+        // Lọc danh sách hợp đồng dựa trên customerId
+        List<Contract> userContracts = contractList.stream()
+                .filter(contract -> contract.getCustomerId() == currentUser.getCustomerId())
+                .toList();
+
+        // Nếu không tìm thấy hợp đồng nào, in thông báo và thoát
+        if (userContracts.isEmpty()) {
+            System.out.println("DANH SÁCH hợp đồng của bạn rỗng.");
+            return;
         }
+
+        // Hiển thị thông tin các hợp đồng
+        userContracts.forEach(Contract::displayData);
     }
+
+
 
     @Override
     public void viewProject() {
-        if (projectList==null || projectList.isEmpty()){
-            System.err.println("Không có dự án nào để hiển thị");
+        usersLogin = IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
+        // tìm kiếm customer tương ứng với userId
+        Customer currentUser = customerList.stream()
+                .filter(customer -> customer.getUserID() ==  usersLogin.getUserId())
+                .findFirst()
+                .orElse(null);
+
+        // không tìm thấy customer in thông báo và thoát
+        if (currentUser == null) {
+            System.out.println("Không tìm thấy khách hàng tương ứng với tài khoản này.");
             return;
         }
-        System.out.println(" Danh sách dự án ");
-        for (Contract contract : contractList){
-            if (contract.getCustomerId() == usersLogin.getUserId()) {
-                for (Project project : projectList){
-                    if (project.getContractId() == contract.getContractId()) {
-                        project.displayData();
-                    }
-                }
-            }
+
+        // lọc danh sách hợp đônồng theo customerId
+        List<Contract> userContracts = contractList.stream()
+                .filter(contract -> contract.getCustomerId() == currentUser.getCustomerId())
+                .toList();
+
+        // thông báo hợp đồng rỗng
+        if (userContracts.isEmpty()) {
+            System.out.println("DANH SÁCH hợp đồng của bạn rỗng.");
+            return;
         }
+
+        // Lọc danh sách dự án dựa trên contractId và hiển thị thông tin
+        userContracts.forEach(contract -> {
+            projectList.stream()
+                    .filter(project -> project.getContractId() == contract.getContractId())
+                    .forEach(Project::displayData);
+        });
     }
 
     private Users getUserFormUsername(String username){

@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import static business.designImpl.RoleCustomerImplement.usersList;
+
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -213,10 +215,12 @@ public class Customer implements Serializable {
     public void displayData() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String priorityDescription = getPriorityCustomer();
-        System.out.printf("Mã KH: %d | Tên KH: %s | Ngày sinh: %s | Giới tính: %s | Địa chỉ: %s | Email: %s | Số điện thoại: %s | Ghi chú: %s | Độ ưu tiên: %d - %s | UserId : %d \n",
+        Users users = usersList.stream().filter(users1 -> users1.getUserId()==this.userID).findFirst().orElse(null);
+        String userName = users!=null ? users.getUsername():"N/A";
+        System.out.printf("Mã KH: %d | Tên KH: %s | Ngày sinh: %s | Giới tính: %s | Địa chỉ: %s | Email: %s | Số điện thoại: %s | Ghi chú: %s | Độ ưu tiên: %d - %s | UserId : %d - %s \n",
                 customerId, customerName, (birthday != null ? birthday.format(dtf) : "N/A"),
                 (sex ? "Nam" : "Nữ"),
-                address, email, phoneNumber, note, priority,priorityDescription,userID);
+                address, email, phoneNumber, note, priority,priorityDescription,userID,userName);
     }
     public String getPriorityCustomer() {
         switch (priority) {

@@ -3,9 +3,13 @@ package business.entity;
 import business.utils.InputMethods;
 
 import java.io.Serializable;
+import java.util.List;
 
+import static business.designImpl.ManageContractImpl.contractList;
 
 public class Users implements Serializable {
+
+
     private static final long serialVersionUID = 1L;
     private int userId;
     private String username;

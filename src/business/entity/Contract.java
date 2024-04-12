@@ -232,22 +232,22 @@ public class Contract implements Serializable {
     }
 
     private String getPriorityContract() {
-        if (totalAmount >0 && totalAmount <= 200000) {
+        if (totalAmount >0 && totalAmount <= 200000000) {
             return "Dự án cấp 1";
-        } else if (totalAmount > 200000 && totalAmount <= 500000) {
+        } else if (totalAmount > 200000000 && totalAmount <= 500000000) {
             return "Dự án cấp 2";
-        } else if (totalAmount > 500000 ) {
+        } else if (totalAmount > 500000000 ) {
             return "Dự án cấp 3";
         } else {
             return "Không xác định";
         }
     }
     private int getPriorityContractInt() {
-        if (totalAmount >0 && totalAmount <= 200000) {
+        if (totalAmount >0 && totalAmount <= 200000000) {
             return 1;
-        } else if (totalAmount > 200000 && totalAmount <= 500000) {
+        } else if (totalAmount > 200000000 && totalAmount <= 500000000) {
             return 2;
-        } else if (totalAmount > 500000 ) {
+        } else if (totalAmount > 500000000 ) {
             return 3;
         } else {
             return 0;

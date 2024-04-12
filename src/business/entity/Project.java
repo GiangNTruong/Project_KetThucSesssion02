@@ -124,12 +124,11 @@ public class Project implements Serializable {
     }
 
     public void inputProjectId() {
-        System.out.println("Nhập mã dự án:");
         this.projectId = InputMethods.getInteger();
     }
 
     public void inputProjectName() {
-        System.out.println("Nhập tên dự án:");
+
         this.projectName = InputMethods.getString();
     }
 
@@ -169,32 +168,32 @@ public class Project implements Serializable {
 
 
     public void inputTotalMember() {
-        System.out.println("Nhập số lượng thành viên:");
+
         this.totalMember = InputMethods.getInteger();
     }
 
     public void inputStartDate() {
-        System.out.println("Nhập ngày bắt đầu (dd/MM/yyyy):");
+
         this.startDate = InputMethods.getLocalDate();
     }
 
     public void inputEndDate() {
-        System.out.println("Nhập ngày kết thúc (dd/MM/yyyy):");
+
         this.endDate = InputMethods.getLocalDate();
     }
 
     public void inputStatus() {
-        System.out.println("Nhập trạng thái (true = hoạt động, false = không hoạt động):");
+
         this.status = InputMethods.getBoolean();
     }
 
     public void inputDescription() {
-        System.out.println("Nhập mô tả:");
+
         this.description = InputMethods.getString();
     }
 
     public void inputTechnology() {
-        System.out.println("Nhập công nghệ:");
+
         this.technology = InputMethods.getString();
     }
 

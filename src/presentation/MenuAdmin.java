@@ -18,11 +18,11 @@ public class MenuAdmin {
     }
     public static void displayMenuAdmin(){
         while (true) {
-            System.out.println("\u001B[31m\u001B[47m========== MENU ADMIN ==========\u001B[0m");
-            System.out.println("\u001B[31m\u001B[47m 1. Đăng xuất \u001B[0m");
-            System.out.println("\u001B[31m\u001B[47m 2. Quản trị tài khoản \u001B[0m");
-            System.out.println("\u001B[31m\u001B[47m 3. Báo cáo thống kê\u001B[0m");
-            System.out.println("\u001B[31m\u001B[47m Vui lòng chọn từ 1-4:\u001B[0m");
+            System.out.println("\u001B[31m\u001B[40m========== MENU ADMIN ==========\u001B[0m");
+            System.out.println("\u001B[31m\u001B[40m 1. Đăng xuất \u001B[0m");
+            System.out.println("\u001B[31m\u001B[40m 2. Quản trị tài khoản \u001B[0m");
+            System.out.println("\u001B[31m\u001B[40m 3. Báo cáo thống kê\u001B[0m");
+            System.out.println("\u001B[31m\u001B[40m Vui lòng chọn từ 1-4:\u001B[0m");
             byte choice = InputMethods.getByte();
             switch (choice){
                 case 1:

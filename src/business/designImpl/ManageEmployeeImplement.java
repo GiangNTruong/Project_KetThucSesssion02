@@ -1,9 +1,7 @@
 package business.designImpl;
 
 import business.design.ManageEmployee;
-import business.entity.Department;
 import business.entity.Employee;
-import business.entity.Users;
 import business.utils.IOFile;
 import business.utils.InputMethods;
 
@@ -57,6 +55,7 @@ public class ManageEmployeeImplement implements ManageEmployee {
 
     @Override
     public void update() {
+        employeeList = IOFile.readFromFile(IOFile.EMPLOYEE_PATH);
         System.out.println("Nhập mã nhân viên cần cập nhật: ");
         Integer employeeId = InputMethods.getInteger();
         Employee employeeToUpdate = findById(employeeId);
@@ -75,7 +74,7 @@ public class ManageEmployeeImplement implements ManageEmployee {
     @Override
     public Employee findById(Integer id) {
         return employeeList.stream()
-                .filter(employee -> employee.getEmployeeId() == id)
+                .filter(employee -> employee.getEmployeeId().equals(id))
                 .findFirst().orElse(null);
     }
 

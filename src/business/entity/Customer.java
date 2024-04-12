@@ -10,10 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Customer implements Serializable {
-    static List<Users> usersList;
-    static {
-        usersList = IOFile.readFromFile(IOFile.CUSTOMER_PATH);
-    }
+
     private static final long serialVersionUID = 1L;
     private int customerId;
     private String customerName;
@@ -125,37 +122,35 @@ public class Customer implements Serializable {
         this.priority = priority;
     }
     public void inputCustomerId() {
-        System.out.println("Nhập mã KH:");
         this.customerId = InputMethods.getInteger();
     }
     public void inputUserId(List<Users> users){
         System.out.println("Danh sách userList ");
-        for (int i = 0; i < users.size() ; i++) {
-            System.out.println((i+1)+" . " + users.get(i).getUserId() + "-" + users.get(i).getUsername() + "-" + users.get(i).getRole());
+        int count =1;
+        for (Users users1 : users) {
+            if (users1.getRole()==RoleName.USER){
+                System.out.println(count+" . " + users1.getUserId() + "-" + users1.getUsername() );
+                count++;
+            }
         }
-        System.out.print("Hãy nhập vị trí user bạn muốn chọn : ");
        byte index = InputMethods.getByte();
         this.userID = users.get(index-1).getUserId();
     }
 
     public void inputCustomerName() {
-        System.out.println("Nhập tên KH:");
         this.customerName = InputMethods.getString();
     }
 
     public void inputBirthday() {
-        System.out.println("Nhập ngày sinh (dd/MM/yyyy):");
+
        this.birthday = InputMethods.getLocalDate();
     }
 
     public void inputSex() {
-        System.out.println("Nhập giới tính (true = Nam, false = Nữ):");
         this.sex = InputMethods.getBoolean();
     }
 
     public void inputAddress() {
-
-        System.out.println("Nhập địa chỉ:");
         this.address = InputMethods.getString();
     }
 
@@ -163,7 +158,6 @@ public class Customer implements Serializable {
         //\\.: Ký tự này khớp với dấu chấm (.) trong địa chỉ email.
         String regexEmail = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         while (true) {
-            System.out.println("Nhập email:");
             this.email = InputMethods.getString();
 
             if (this.email.matches(regexEmail)) {
@@ -181,7 +175,6 @@ public class Customer implements Serializable {
         //\\b: Ký tự này đánh dấu ranh giới của một từ, đảm bảo rằng không có chữ số nào khác sau chuỗi 8 chữ số
         String regexPhoneNumber = "^(84|0[3|5|7|8|9])+([0-9]{8})\\b";
         while (true) {
-            System.out.println("Nhập số điện thoại:");
             this.phoneNumber = InputMethods.getString();
 
             if (this.phoneNumber.matches(regexPhoneNumber)) {
@@ -194,15 +187,10 @@ public class Customer implements Serializable {
 
 
     public void inputNote() {
-        System.out.println("Nhập ghi chú:");
         this.note = InputMethods.getString();
     }
 
     public void inputPriority() {
-        System.out.println("Nhập độ ưu tiên (1-3):");
-        System.out.println("1. Khách hàng VIP");
-        System.out.println("2. Khách hàng Tiềm năng");
-        System.out.println("3. Khách hàng Bình thường");
         int input = InputMethods.getInteger();
         switch(input) {
             case 1:

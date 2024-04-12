@@ -5,6 +5,7 @@ package business.entity;
 import business.utils.InputMethods;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -148,15 +149,17 @@ public class Employee implements Serializable {
 
 
     public void displayData() {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        String formattedSlary = formatter.format(this.salary)+" VNĐ";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        System.out.printf("[ employeeId: %d | employeeName: %s | departmentId: %d | birthday: %s | sex: %b | createDate: %s | salary: %.2f ] \n",
+        System.out.printf("[ employeeId: %d | employeeName: %s | departmentId: %d | birthday: %s | sex: %b | createDate: %s | salary: %s ] \n",
                 this.employeeId,
                 this.employeeName,
                 this.departmentId,
                 (this.birthday != null) ? this.birthday.format(dtf) : "N/A",
                 this.sex ? "Nam" : "Nữ",
                 (this.createDate != null) ? this.createDate.format(dtf) : "N/A",
-                this.salary);
+                formattedSlary);
     }
 
 

@@ -137,6 +137,7 @@ public class MenuManger {
         while (true){
             System.out.println("====================");
             System.out.println("====================Menu quản lý khách hàng====================");
+            System.out.println("1. Thêm danh sách khacch hàng");
             System.out.println("2. Xem danh sách khách hàng");
             System.out.println("3. Cập nhật thông tin khách hàng");
             System.out.println("4. Xóa khách hàng");
@@ -217,7 +218,7 @@ public class MenuManger {
             System.out.println("1. Thêm mới dự án");
             System.out.println("2. Xem danh sách dự án");
             System.out.println("3. Cập nhật thông tin dự án");
-            System.out.println("4. Cập nhật dự án");
+            System.out.println("4. Cập nhật trạng thái dự án");
             System.out.println("5. Quay lại menu chính");
             System.out.println("--------------------");
             System.out.print("Chọn chức năng: ");
@@ -239,7 +240,7 @@ public class MenuManger {
                     System.out.println("QUay lại menu chính");
                     return;
                 default:
-                    System.err.println("KHông hợp lệ vui lòng nhập từ 1-6");
+                    System.err.println("KHông hợp lệ vui lòng nhập từ 1-5");
 
             }
         }

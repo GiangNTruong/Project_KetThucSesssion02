@@ -4,6 +4,7 @@ import business.utils.IOFile;
 import business.utils.InputMethods;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -114,12 +115,12 @@ public class Contract implements Serializable {
     }
 
     public void inputContractId() {
-        System.out.println("Nhập mã hợp đồng:");
+
         this.contractId = InputMethods.getInteger();
     }
 
     public void inputContractName() {
-        System.out.println("Nhập tên hợp đồng:");
+
         this.contractName = InputMethods.getString();
     }
 
@@ -138,7 +139,6 @@ public class Contract implements Serializable {
 
     // Hàm để nhập mã khách hàng từ danh sách khách hàng
     public void inputCustomerId(List<Customer> customers) {
-
         System.out.println("Nhập khách hàng theo vị trí:");
         for (int i = 0; i < customers.size(); i++) {
             System.out.println((i + 1) + ". " + customers.get(i).getCustomerId() + " - " + customers.get(i).getCustomerName());
@@ -151,19 +151,19 @@ public class Contract implements Serializable {
 
 
     public void inputCreatedDate() {
-        System.out.println("Nhập ngày kí (dd/MM/yyyy):");
+
         this.createdDate = InputMethods.getLocalDate();
     }
 
     public void inputExpiryDate() {
-        System.out.println("Nhập ngày hết hạn (dd/MM/yyyy):");
+
        this.expiryDate =InputMethods.getLocalDate();
     }
 
     public void inputTotalAmount() {
         while (true) {
             try {
-                System.out.println("Nhập tổng tiền:");
+
                 this.totalAmount = InputMethods.getDouble();
 
                 if (this.totalAmount < 0) {
@@ -172,13 +172,12 @@ public class Contract implements Serializable {
                     break;
                 }
             } catch (Exception e) {
-                System.out.println("Đầu vào không hợp lệ. Vui lòng nhập một số.");
+                System.err.println("Đầu vào không hợp lệ. Vui lòng nhập một số.");
             }
         }
     }
 
     public void inputDescription() {
-        System.out.println("Nhập mô tả:");
         this.description = InputMethods.getString();
     }
 
@@ -207,6 +206,8 @@ public class Contract implements Serializable {
 //    }
 
     public void displayData() {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        String formattedTotalAmount = formatter.format(this.totalAmount)+ " VNĐ";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String priorityContract = getPriorityContract();
         int priorityContractInt = getPriorityContractInt();
@@ -221,11 +222,11 @@ public class Contract implements Serializable {
         String employeeName = employee != null ? employee.getEmployeeName() : "N/A";
 
 
-        System.out.printf("Mã hợp đồng: %d | Tên hợp đồng: %s | Nhân viên phụ trách: %d - %s | Khách hàng: %d - %s | Ngày kí: %s | Ngày hết hạn: %s | Tổng tiền: %.2f | Mô tả: %s | Độ ưu tiên: %d - %s |\n",
+        System.out.printf("Mã hợp đồng: %d | Tên hợp đồng: %s | Nhân viên phụ trách: %d - %s | Khách hàng: %d - %s | Ngày kí: %s | Ngày hết hạn: %s | Tổng tiền: %s | Mô tả: %s | Độ ưu tiên: %d - %s |\n",
                 contractId, contractName, employeeId,employeeName, customerId, customerName,
                 (createdDate != null ? createdDate.format(dtf) : "N/A"),
                 (expiryDate != null ? expiryDate.format(dtf) : "N/A"),
-                totalAmount,
+                formattedTotalAmount,
                 description,
                 priorityContractInt, priorityContract);
     }

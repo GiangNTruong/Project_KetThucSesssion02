@@ -23,6 +23,7 @@ public class Main {
     public static final String ANSI_WHITE = "\u001B[37m";
     public static final String BLACK_BG = "\u001B[40m";
     public static final String WHITE_BG = "\u001B[47m";
+    public static final String YELLOW_BG = "\u001B[43m";
     private static MenuCustomer menuCustomer = new MenuCustomer();
     private static MenuManger menuManger = new MenuManger();
     private static Logout loginAccount = new RoleCustomerImplement();

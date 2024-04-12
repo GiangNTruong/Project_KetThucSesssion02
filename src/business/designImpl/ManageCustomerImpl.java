@@ -1,14 +1,8 @@
 package business.designImpl;
-
-import business.design.ManagerContract;
 import business.design.ManagerCustomer;
-import business.entity.Contract;
 import business.entity.Customer;
-import business.entity.Users;
 import business.utils.IOFile;
 import business.utils.InputMethods;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,20 +21,37 @@ public class ManageCustomerImpl implements ManagerCustomer {
 
     @Override
     public void addNew() {
+        if (usersList.isEmpty()){
+            System.err.println("Chưa có tài khoản USER, liên hệ admin để thêm mới tài khoản USER");
+            return;
+        }
         usersList = IOFile.readFromFile(IOFile.USER_PATH);
         System.out.println("Nhập số khách hàng thêm mới");
         int n = InputMethods.getInteger();
         for (int i = 0; i < n; i++) {
             Customer newCustomer = new Customer();
+            System.out.println("Nhập mã KH:");
             newCustomer.inputCustomerId();
+            System.out.println("Nhập tên KH:");
             newCustomer.inputCustomerName();
+            System.out.println("Nhập ngày sinh (dd/MM/yyyy):");
             newCustomer.inputBirthday();
+            System.out.println("Nhập giới tính (true = Nam, false = Nữ):");
             newCustomer.inputSex();
+            System.out.println("Nhập địa chỉ:");
             newCustomer.inputAddress();
+            System.out.println("Nhập email:");
             newCustomer.inputEmail();
+            System.out.println("Nhập số điện thoại:");
             newCustomer.inputPhoneNumber();
+            System.out.println("Nhập ghi chú:");
             newCustomer.inputNote();
+            System.out.println("Nhập độ ưu tiên (1-3):");
+            System.out.println("1. Khách hàng VIP");
+            System.out.println("2. Khách hàng Tiềm năng");
+            System.out.println("3. Khách hàng Bình thường");
             newCustomer.inputPriority();
+            System.out.print("Hãy nhập vị trí user bạn muốn chọn : ");
             newCustomer.inputUserId(usersList);
             customerList.add(newCustomer);
         }
@@ -71,67 +82,69 @@ public class ManageCustomerImpl implements ManagerCustomer {
             System.err.println("Mã KH không tìm thấy");
             return;
         }
-        System.out.println("Bạn muốn cập nhật thông tin gì?");
-        System.out.println("1. Tên KH");
-        System.out.println("2. Ngày sinh");
-        System.out.println("3. Giới tính");
-        System.out.println("4. Địa chỉ");
-        System.out.println("5. Email");
-        System.out.println("6. Số điện thoại");
-        System.out.println("7. Ghi chú");
-        System.out.println("8. Độ ưu tiên");
-        int choice = InputMethods.getInteger();
-        switch (choice) {
-            case 1:
-                System.out.println("Nhập tên KH mới:");
-                String newName = InputMethods.getString();
-                updateCustomer.setCustomerName(newName);
-                break;
-            case 2:
-                System.out.println("Nhập ngày sinh mới (dd/MM/yyyy):");
-                LocalDate newBirthday = InputMethods.getLocalDate();
-                updateCustomer.setBirthday(newBirthday);
-                break;
-            case 3:
-                System.out.println("Nhập giới tính mới (true = Nam, false = Nữ):");
-                boolean newSex = InputMethods.getBoolean();
-                updateCustomer.setSex(newSex);
-                break;
-            case 4:
-                System.out.println("Nhập địa chỉ mới:");
-                String newAddress = InputMethods.getString();
-                updateCustomer.setAddress(newAddress);
-                break;
-            case 5:
-                System.out.println("Nhập email mới:");
-                String newEmail = InputMethods.getString();
-                updateCustomer.setEmail(newEmail);
-                break;
-            case 6:
-                System.out.println("Nhập số điện thoại mới:");
-                String newPhoneNumber = InputMethods.getString();
-                updateCustomer.setPhoneNumber(newPhoneNumber);
-                break;
-            case 7:
-                System.out.println("Nhập ghi chú mới:");
-                String newNote = InputMethods.getString();
-                updateCustomer.setNote(newNote);
-                break;
-            case 8:
-                System.out.println("Nhập độ ưu tiên mới(1-3):");
-                System.out.println("1. Khách hàng VIP");
-                System.out.println("2. Khách hàng Tiềm năng");
-                System.out.println("3. Khách hàng Bình thường");
-                int newPriority = InputMethods.getInteger();
-                updateCustomer.setPriority(newPriority);
-                break;
-            default:
-                System.err.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
-                break;
-        }
-        // Ghi danh sách khách hàng đã cập nhật vào file
-        IOFile.writeToFile(IOFile.CUSTOMER_PATH, customerList);
-        System.out.println("Cập nhật thông tin khách hàng thành công");
+       while (true){
+           System.out.println("Bạn muốn cập nhật thông tin gì?");
+           System.out.println("1. Tên KH");
+           System.out.println("2. Ngày sinh");
+           System.out.println("3. Giới tính");
+           System.out.println("4. Địa chỉ");
+           System.out.println("5. Email");
+           System.out.println("6. Số điện thoại");
+           System.out.println("7. Ghi chú");
+           System.out.println("8. Độ ưu tiên");
+           System.out.println("9. User ");
+           System.out.println("10. Thoát");
+           int choice = InputMethods.getInteger();
+           switch (choice) {
+               case 1:
+                   System.out.println("Nhập tên KH mới:");
+                   updateCustomer.inputCustomerName();
+                   break;
+               case 2:
+                   System.out.println("Nhập ngày sinh mới (dd/MM/yyyy):");
+                   updateCustomer.inputBirthday();
+                   break;
+               case 3:
+                   System.out.println("Nhập giới tính mới (true = Nam, false = Nữ):");
+                   updateCustomer.inputSex();
+                   break;
+               case 4:
+                   System.out.println("Nhập địa chỉ mới:");
+                   updateCustomer.inputAddress();
+                   break;
+               case 5:
+                   System.out.println("Nhập email mới:");
+                   updateCustomer.inputEmail();
+                   break;
+               case 6:
+                   System.out.println("Nhập số điện thoại mới:");
+                   updateCustomer.inputPhoneNumber();
+                   break;
+               case 7:
+                   System.out.println("Nhập ghi chú mới:");
+                   updateCustomer.inputNote();
+                   break;
+               case 8:
+                   System.out.println("Nhập độ ưu tiên mới(1-3) mới:");
+                   System.out.println("1. Khách hàng VIP");
+                   System.out.println("2. Khách hàng Tiềm năng");
+                   System.out.println("3. Khách hàng Bình thường");
+                   updateCustomer.inputPriority();
+                   break;
+               case 9:
+                   System.out.print("Hãy nhập vị trí mới cho user bạn muốn chọn mới: ");
+                   updateCustomer.inputUserId(usersList);
+               case 10:
+                   System.out.println("Thoát thành công");
+                   // Ghi danh sách khách hàng đã cập nhật vào file
+                   IOFile.writeToFile(IOFile.CUSTOMER_PATH, customerList);
+                   System.out.println("Cập nhật thông tin khách hàng thành công");
+                   return;
+               default:
+                   System.err.println("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+                   break;
+           }
+       }
     }
 
     @Override

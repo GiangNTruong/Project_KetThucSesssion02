@@ -27,18 +27,32 @@ public class ManageContractImpl implements ManagerContract {
     }
     @Override
     public void addNew() {
+        if(employeeList.isEmpty()){
+            System.err.println("Chưa có nhân viên phụ trách, thêm mới nhân viên trước  ");
+            return;
+        }
+        if (customerList.isEmpty()){
+            System.err.println("Chưa có khách hàng nhận hợp đồng , thêm mới khách hàng trước ");
+            return;
+        }
 
         System.out.println("Nhập số lượng hợp đồng bạn muốn thêm mới");
         byte n = InputMethods.getByte();
         for (int i = 0; i < n; i++) {
             Contract newContract = new Contract();
+            System.out.println("Nhập mã hợp đồng:");
             newContract.inputContractId();
+            System.out.println("Nhập tên hợp đồng:");
             newContract.inputContractName();
             newContract.inputEmployeeId(employeeList);
             newContract.inputCustomerId(customerList);
+            System.out.println("Nhập ngày kí (dd/MM/yyyy):");
             newContract.inputCreatedDate();
+            System.out.println("Nhập ngày hết hạn (dd/MM/yyyy):");
             newContract.inputExpiryDate();
+            System.out.println("Nhập tổng tiền:");
             newContract.inputTotalAmount();
+            System.out.println("Nhập mô tả:");
             newContract.inputDescription();
             contractList.add(newContract);
         }
@@ -68,50 +82,56 @@ public class ManageContractImpl implements ManagerContract {
             System.err.println("Mã hợp đồng không tìm thấy");
             return;
         }
-        System.out.println("Bạn muốn cập nhât thông tin gì ?");
-        System.out.println("1. Tên hợp đồng bạn muốn cập nhật  ");
-        System.out.println("2. Nhân viên phụ trách ");
-        System.out.println("3. Khách hàng ");
-        System.out.println("4. Ngày kí hợp đồng ");
-        System.out.println("5. Ngày hết hạn hợp đồng ");
-        System.out.println("6. Tổng money hợp đồng ");
-        System.out.println("7. Mô tả hợp đồng ");
-        byte choice  = InputMethods.getByte();
-        switch (choice){
-            case 1:
-                System.out.println("Nhập tên hợp đồng mới");
-                updateContract.inputContractName();
-                break;
-            case 2:
-                System.out.println("Nhập nhân viên phụ trách mới");
-                updateContract.inputEmployeeId(employeeList);
-                break;
-            case 3:
-                System.out.println("Nhập khách hàng mới ");
-                updateContract.inputCustomerId(customerList);
-                break;
-            case 4:
-                System.out.println("NHập ngày kí hợp đồng mới");
-                updateContract.inputCreatedDate();
-                break;
-            case 5:
-                System.out.println("Nhập ngày hết hạn hợp đồng ");
-               updateContract.inputExpiryDate();
-                break;
-            case 6:
-                System.out.println("Tổng money hợp đồng mới");
-                updateContract.inputTotalAmount();
-                break;
-            case 7:
-                System.out.println("Nhập mô tả mới ");
-               updateContract.inputDescription();
-                break;
-            default:
-                System.out.println("Lựa chọn ko hợp lệ . VUi lòng thử lại ");
-                break;
-        }
-        IOFile.writeToFile(IOFile.CONTRACT_PATH,contractList);
-        System.out.println("Cập nhật thông tin dự án thành công");
+       while (true){
+           System.out.println("Bạn muốn cập nhât thông tin gì ?");
+           System.out.println("1. Tên hợp đồng bạn muốn cập nhật  ");
+           System.out.println("2. Nhân viên phụ trách ");
+           System.out.println("3. Khách hàng ");
+           System.out.println("4. Ngày kí hợp đồng ");
+           System.out.println("5. Ngày hết hạn hợp đồng ");
+           System.out.println("6. Tổng money hợp đồng ");
+           System.out.println("7. Mô tả hợp đồng ");
+           System.out.println("8. Thoát");
+           byte choice  = InputMethods.getByte();
+           switch (choice){
+               case 1:
+                   System.out.println("Nhập tên hợp đồng mới");
+                   updateContract.inputContractName();
+                   break;
+               case 2:
+                   System.out.println("Nhập nhân viên phụ trách mới");
+                   updateContract.inputEmployeeId(employeeList);
+                   break;
+               case 3:
+                   System.out.println("Nhập khách hàng mới ");
+                   updateContract.inputCustomerId(customerList);
+                   break;
+               case 4:
+                   System.out.println("NHập ngày kí hợp đồng mới");
+                   updateContract.inputCreatedDate();
+                   break;
+               case 5:
+                   System.out.println("Nhập ngày hết hạn hợp đồng ");
+                   updateContract.inputExpiryDate();
+                   break;
+               case 6:
+                   System.out.println("Tổng money hợp đồng mới");
+                   updateContract.inputTotalAmount();
+                   break;
+               case 7:
+                   System.out.println("Nhập mô tả mới ");
+                   updateContract.inputDescription();
+                   break;
+               case 8:
+                   System.out.println("Thoát thành công");
+                   IOFile.writeToFile(IOFile.CONTRACT_PATH,contractList);
+                   System.out.println("Cập nhật thông tin dự án thành công");
+                   return;
+               default:
+                   System.out.println("Lựa chọn ko hợp lệ . VUi lòng thử lại ");
+                   break;
+           }
+       }
     }
 
     @Override

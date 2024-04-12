@@ -141,7 +141,9 @@ public class RoleCustomerImplement implements RoleCustomer {
         }
         System.out.println(" Danh sách hợp đồng ");
         for (Contract contract : contractList){
-            contract.displayData();
+            if (contract.getCustomerId() == usersLogin.getUserId()) {
+                contract.displayData();
+            }
         }
     }
 
@@ -152,10 +154,17 @@ public class RoleCustomerImplement implements RoleCustomer {
             return;
         }
         System.out.println(" Danh sách dự án ");
-        for (Project project : projectList){
-            project.displayData();
+        for (Contract contract : contractList){
+            if (contract.getCustomerId() == usersLogin.getUserId()) {
+                for (Project project : projectList){
+                    if (project.getContractId() == contract.getContractId()) {
+                        project.displayData();
+                    }
+                }
+            }
         }
     }
+
     private Users getUserFormUsername(String username){
         usersLogin = IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
         usersList = IOFile.readFromFile(IOFile.USER_PATH);

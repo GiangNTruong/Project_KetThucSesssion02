@@ -80,38 +80,31 @@ public class ManageContractImpl implements ManagerContract {
         switch (choice){
             case 1:
                 System.out.println("Nhập tên hợp đồng mới");
-                String newName = InputMethods.getString();
-                updateContract.setContractName(newName);
+                updateContract.inputContractName();
                 break;
             case 2:
                 System.out.println("Nhập nhân viên phụ trách mới");
-                byte newEmployee = InputMethods.getByte();
-                updateContract.setCustomerId(newEmployee);
+                updateContract.inputEmployeeId(employeeList);
                 break;
             case 3:
                 System.out.println("Nhập khách hàng mới ");
-                byte newCusomer = InputMethods.getByte();
-                updateContract.setCustomerId(newCusomer);
+                updateContract.inputCustomerId(customerList);
                 break;
             case 4:
                 System.out.println("NHập ngày kí hợp đồng mới");
-                LocalDate newCreateDate = InputMethods.getLocalDate();
-                updateContract.setCreatedDate(newCreateDate);
+                updateContract.inputCreatedDate();
                 break;
             case 5:
                 System.out.println("Nhập ngày hết hạn hợp đồng ");
-                LocalDate newExpiryDate = InputMethods.getLocalDate();
-                updateContract.setExpiryDate(newExpiryDate);
+               updateContract.inputExpiryDate();
                 break;
             case 6:
                 System.out.println("Tổng money hợp đồng mới");
-                double newTotalAmount = InputMethods.getDouble();
-                updateContract.setTotalAmount(newTotalAmount);
+                updateContract.inputTotalAmount();
                 break;
             case 7:
                 System.out.println("Nhập mô tả mới ");
-                String newDescription = InputMethods.getString();
-                updateContract.setDescription(newDescription);
+               updateContract.inputDescription();
                 break;
             default:
                 System.out.println("Lựa chọn ko hợp lệ . VUi lòng thử lại ");

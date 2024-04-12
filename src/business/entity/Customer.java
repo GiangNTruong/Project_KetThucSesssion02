@@ -154,19 +154,44 @@ public class Customer implements Serializable {
     }
 
     public void inputAddress() {
+
         System.out.println("Nhập địa chỉ:");
         this.address = InputMethods.getString();
     }
 
     public void inputEmail() {
-        System.out.println("Nhập email:");
-        this.email = InputMethods.getString();
+        //\\.: Ký tự này khớp với dấu chấm (.) trong địa chỉ email.
+        String regexEmail = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
+        while (true) {
+            System.out.println("Nhập email:");
+            this.email = InputMethods.getString();
+
+            if (this.email.matches(regexEmail)) {
+                break;
+            } else {
+                System.out.println("Email không hợp lệ. Vui lòng nhập lại.");
+            }
+        }
     }
 
+
     public void inputPhoneNumber() {
-        System.out.println("Nhập số điện thoại:");
-        this.phoneNumber = InputMethods.getString();
+        //nó sẽ khớp với “84” hoặc bắt đầu bằng “0” theo sau là một trong các số sau: 3, 5, 7, 8, 9.
+        //+: Ký tự này đánh dấu rằng chuỗi khớp với mẫu trước đó phải xuất hiện ít nhất một lần. Điều này có nghĩa là số điện thoại phải bắt đầu bằng “84” hoặc một đầu số di động hợp lệ.
+        //\\b: Ký tự này đánh dấu ranh giới của một từ, đảm bảo rằng không có chữ số nào khác sau chuỗi 8 chữ số
+        String regexPhoneNumber = "^(84|0[3|5|7|8|9])+([0-9]{8})\\b";
+        while (true) {
+            System.out.println("Nhập số điện thoại:");
+            this.phoneNumber = InputMethods.getString();
+
+            if (this.phoneNumber.matches(regexPhoneNumber)) {
+                break;
+            } else {
+                System.out.println("Số điện thoại không hợp lệ. Vui lòng nhập lại.");
+            }
+        }
     }
+
 
     public void inputNote() {
         System.out.println("Nhập ghi chú:");

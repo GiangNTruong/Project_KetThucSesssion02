@@ -161,8 +161,20 @@ public class Contract implements Serializable {
     }
 
     public void inputTotalAmount() {
-        System.out.println("Nhập tổng tiền:");
-        this.totalAmount = InputMethods.getDouble();
+        while (true) {
+            try {
+                System.out.println("Nhập tổng tiền:");
+                this.totalAmount = InputMethods.getDouble();
+
+                if (this.totalAmount < 0) {
+                    System.err.println("Số tiền không thể âm. Vui lòng nhập lại.");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Đầu vào không hợp lệ. Vui lòng nhập một số.");
+            }
+        }
     }
 
     public void inputDescription() {

@@ -139,7 +139,6 @@ public class RoleCustomerImplement implements RoleCustomer {
         usersLogin = IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
         Customer currentUser = customerList.stream().filter(customer -> customer.getUserID() == usersLogin.getUserId()).findFirst().orElse(null);
 
-        // Nếu không tìm thấy customer, in thông báo và thoát
         if (currentUser == null) {
             System.out.println("Không tìm thấy khách hàng tương ứng với tài khoản này.");
             return;
@@ -171,13 +170,11 @@ public class RoleCustomerImplement implements RoleCustomer {
                 .findFirst()
                 .orElse(null);
 
-        // không tìm thấy customer in thông báo và thoát
         if (currentUser == null) {
             System.out.println("Không tìm thấy khách hàng tương ứng với tài khoản này.");
             return;
         }
 
-        // lọc danh sách hợp đônồng theo customerId
         List<Contract> userContracts = contractList.stream()
                 .filter(contract -> contract.getCustomerId() == currentUser.getCustomerId())
                 .toList();
@@ -188,7 +185,7 @@ public class RoleCustomerImplement implements RoleCustomer {
             return;
         }
 
-        // Lọc danh sách dự án dựa trên contractId và hiển thị thông tin
+        //  danh sách dự án dựa trên contractId và hiển thị thông tin
         userContracts.forEach(contract -> {
             projectList.stream()
                     .filter(project -> project.getContractId() == contract.getContractId())

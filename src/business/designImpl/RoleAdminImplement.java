@@ -45,7 +45,7 @@ public class RoleAdminImplement implements RoleAdmin {
     public void logout() {
         usersLogin=null;
         IOFile.writetoUserLogin(IOFile.USERLOGIN_PATH,usersLogin );
-        System.out.println("Đã đăng xuất");
+        System.out.println("Đã đăng xuất ");
     }
 
     @Override
@@ -109,7 +109,6 @@ public class RoleAdminImplement implements RoleAdmin {
         System.out.println("Số lượng dự án: " + projectList.size());
     }
 
-    @Override
     public void viewProjectByContract() {
         System.out.println("Danh sách hợp đồng:");
         for (Contract contract : contractList) {
@@ -119,21 +118,22 @@ public class RoleAdminImplement implements RoleAdmin {
         Integer id = InputMethods.getInteger();
         Contract contract = findContractById(id);
         if (contract != null) {
-            boolean hasProject = false;
+            boolean check = false; // kiểm tra xem có dự án nào được tìm thấy hay không
             System.out.println("Danh sách dự án theo hợp đồng:");
             for (Project project : projectList) {
                 if (project.getContractId() == contract.getContractId()) {
-                    System.out.println(project.getProjectName());
-                    hasProject = true;
+                    System.out.println("ID : " + project.getProjectId()+" | Name Project : " + project.getProjectName());
+                    check = true;
                 }
             }
-            if (!hasProject) {
+            if (!check) {
                 System.err.println("Không có dự án nào theo hợp đồng này.");
             }
         } else {
             System.err.println("Không tìm thấy hợp đồng với ID đã cung cấp.");
         }
     }
+
 
 
 

@@ -52,6 +52,8 @@ public class ManageContractImpl implements ManagerContract {
             newContract.inputExpiryDate();
             System.out.println("Nhập tổng tiền:");
             newContract.inputTotalAmount();
+            System.out.println("Nhập mã trạng thái cho dự án  (true = Hoạt động , false = Không hoạt động)");
+            newContract.inputStatusContract();
             System.out.println("Nhập mô tả:");
             newContract.inputDescription();
             contractList.add(newContract);
@@ -91,7 +93,8 @@ public class ManageContractImpl implements ManagerContract {
            System.out.println("5. Ngày hết hạn hợp đồng ");
            System.out.println("6. Tổng money hợp đồng ");
            System.out.println("7. Mô tả hợp đồng ");
-           System.out.println("8. Thoát");
+           System.out.println("8. Cập nhật trạng thái");
+           System.out.println("9. Thoát");
            byte choice  = InputMethods.getByte();
            switch (choice){
                case 1:
@@ -122,7 +125,11 @@ public class ManageContractImpl implements ManagerContract {
                    System.out.println("Nhập mô tả mới ");
                    updateContract.inputDescription();
                    break;
-               case 8:
+               case 8 :
+                   System.out.println("Nhập mã trạng thái cho dự án  (true = Hoạt động , false = Không hoạt động)");
+                   updateContract.inputStatusContract();
+                   break;
+               case 9:
                    System.out.println("Thoát thành công");
                    IOFile.writeToFile(IOFile.CONTRACT_PATH,contractList);
                    System.out.println("Cập nhật thông tin dự án thành công");
@@ -155,7 +162,7 @@ public class ManageContractImpl implements ManagerContract {
 
     @Override
     public void searchContractByName() {
-        System.out.println("Nhập tên dự án bạn muốn xem ");
+        System.out.println("Nhập tên hợp đồng bạn muốn xem ");
         String searchNameContract = InputMethods.getString();
         List<Contract> filterContract = contractList.stream().filter(contract -> contract.getContractName().toLowerCase().contains(searchNameContract.toLowerCase())).toList();
         if (filterContract.isEmpty()){
@@ -166,5 +173,21 @@ public class ManageContractImpl implements ManagerContract {
                 contract.displayData();
             }
         }
+    }
+
+    @Override
+    public void changeStatus() {
+        System.out.println("Nhập mã hợp đồng bạn muô thay đổi trạng thái : ");
+        Integer id = InputMethods.getInteger();
+        Contract contractupdateStatus = findById(id);
+        if (contractupdateStatus==null){
+            System.err.println("Mã hợp đồng không tìm thấy");
+            return;
+        }
+        System.out.println("Nhập mã trạng thái mới cho hợp đồng (true = Hoạt động , false = Không hoạt động) ");
+        boolean newStatus = InputMethods.getBoolean();
+        contractupdateStatus.setStatus(newStatus);
+        IOFile.writeToFile(IOFile.CONTRACT_PATH,contractList);
+        System.out.println("Cập nhật trạng thái thành công");
     }
 }

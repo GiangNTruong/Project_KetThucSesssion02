@@ -102,6 +102,11 @@ public class IOFile {
         }
     }
     public static <T> T readFromToUser(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            // Tệp không tồn tại, có nghĩa là người dùng chưa đăng nhập
+            return null;
+        }
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         T t =null;

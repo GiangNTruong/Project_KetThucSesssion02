@@ -181,7 +181,8 @@ public class MenuManger {
             System.out.println("3. Cập nhật thông tin hợp đồng");
             System.out.println("4. Xóa hợp đồng");
             System.out.println("5. Tìm kiếm hợp đồng theo tên");
-            System.out.println("6. Quay lại menu chính");
+            System.out.println("6. Cập nhật trạng thái hợp đồng");
+            System.out.println("7. Quay lại menu chính");
             System.out.println("--------------------");
             System.out.print("Chọn chức năng: ");
             byte choice = InputMethods.getByte();
@@ -201,7 +202,11 @@ public class MenuManger {
                 case 5:
                     managerContract.searchContractByName();
                     break;
-                case 6:
+                case 6 :
+                    managerContract.changeStatus();
+                    break;
+
+                    case 7:
                     System.out.println("QUay lại menu chính");
                     return;
                 default:

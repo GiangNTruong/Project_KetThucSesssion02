@@ -6,5 +6,6 @@ public interface ManagerContract extends IGenericDesign<Contract,Integer> {
 
     void deleteContract();
     void searchContractByName();
+    void changeStatus();
 
 }

@@ -1,15 +1,11 @@
 package presentation;
 
-import business.design.Logout;
-import business.designImpl.RoleAdminImplement;
+import business.design.Loginout;
 import business.designImpl.RoleCustomerImplement;
 import business.entity.RoleName;
 import business.entity.Users;
 import business.utils.IOFile;
 import business.utils.InputMethods;
-import org.mindrot.jbcrypt.BCrypt;
-
-import java.util.List;
 
 public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
@@ -26,7 +22,7 @@ public class Main {
     public static final String YELLOW_BG = "\u001B[43m";
     private static MenuCustomer menuCustomer = new MenuCustomer();
     private static MenuManger menuManger = new MenuManger();
-    private static Logout loginAccount = new RoleCustomerImplement();
+    private static Loginout loginAccount = new RoleCustomerImplement();
     public static Users userPrincipal = null;
     public static void main(String[] args) {
 //        List<Users> users = IOFile.readFromFile(IOFile.USER_PATH);
@@ -45,7 +41,8 @@ public class Main {
 //            IOFile.writeToFile(IOFile.USER_PATH, users);
 //        }
 
-        while (true){
+        // Đọc thông tin người dùng đã lưu từ tệp
+        while (true) {
             System.out.println(ANSI_BLACK + WHITE_BG+" =================MENU====================="+ANSI_RESET);
             System.out.println(ANSI_BLACK +WHITE_BG+" 1. Đăng nhập \u001B[0m"+ANSI_RESET);
             System.out.println(ANSI_BLACK +WHITE_BG+" 2. Thoát \u001B[0m"+ANSI_RESET);
@@ -54,7 +51,12 @@ public class Main {
             byte choice = InputMethods.getByte();
             switch (choice){
                 case 1:
-                    login();
+                    userPrincipal = IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
+                    if (userPrincipal != null) {
+                        handleUser(userPrincipal);
+                    } else {
+                        login();
+                    }
                     break;
                 case 2:
                     System.out.println("Thoát chương trình");
@@ -64,9 +66,27 @@ public class Main {
             }
         }
     }
+    public static void handleUser(Users userPrincipal) {
+        if (userPrincipal.getRole().equals(RoleName.ADMIN)){
+            MenuAdmin.getInstance().displayMenuAdmin();
+        } else if (userPrincipal.getRole().equals(RoleName.USER)){
+            if (!userPrincipal.isStatus()){
+                System.err.println("Tài khoản đã bị khóa, vui lòng liên hệ admin()");
+            } else {
+                menuCustomer.displayMenuCustomer();
+            }
+        } else if (userPrincipal.getRole().equals(RoleName.MANAGER)){
+            if (!userPrincipal.isStatus()){
+                System.err.println("Tài khoản đã bị khóa, vui lòng liên hệ admin()");
+            } else {
+                menuManger.displayMenuManager();
+            }
+        } else {
+            System.err.println("Ko có quyền truy cập");
+        }
 
+    }
     public static void login() {
-        // Vòng lặp do-while sẽ tiếp tục cho đến khi người dùng nhập đúng thông tin đăng nhập hoặc chọn thoát
         do {
             System.out.println(ANSI_PURPLE+"============Đang nhập ================\u001B[0m");
             System.out.println(ANSI_BLUE+"Nhập username : \u001B[0m");
@@ -76,7 +96,7 @@ public class Main {
 
             // Thử đăng nhập với username và password đã nhập
             userPrincipal = loginAccount.login(username, password);
-            // Nếu đăng nhập không thành công (userPrincipal == null)
+
             if (userPrincipal == null) {
                 System.err.println("Tên đăng nhập hoặc mật khẩu không chính xác");
                 System.out.println("1. Tiếp tục đăng nhập");
@@ -92,12 +112,13 @@ public class Main {
                         System.err.println("Lựa chọn không hợp lệ");
                 }
             } else {
-                // Nếu đăng nhập thành công, lưu thông tin người dùng đã đăng nhập
+
                 IOFile.writetoUserLogin(IOFile.USERLOGIN_PATH,userPrincipal);
             }
         } while (userPrincipal == null);
 
-        // Kiểm tra vai trò của người dùng và thực hiện hành động tương ứng
+
+        // kiểm tra vai trò của người dùng và thực hiện hành động tương ứng
         if (userPrincipal.getRole().equals(RoleName.ADMIN)){
             MenuAdmin.getInstance().displayMenuAdmin();
         } else if (userPrincipal.getRole().equals(RoleName.USER)){

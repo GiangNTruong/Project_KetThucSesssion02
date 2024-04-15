@@ -42,7 +42,7 @@ public class RoleCustomerImplement implements RoleCustomer {
         if (userLogin==null){
             return null;
         }
-        boolean checkLogin = BCrypt.checkpw(password,userLogin.getPassword()); // kiem tra mat khau khop hay khong
+        boolean checkLogin = BCrypt.checkpw(password,userLogin.getPassword()); // check mat khau khop hay khong
         if (checkLogin){
             return userLogin;
         }
@@ -57,6 +57,7 @@ public class RoleCustomerImplement implements RoleCustomer {
     }
         @Override
         public void viewPersonalInfo() {
+            usersLogin =  IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
             // Tìm kiếm thông tin cá nhân của người dùng đã đăng nhập
             for (Customer customer : customerList) {
                 if (customer.getUserID() == usersLogin.getUserId()) {
@@ -130,13 +131,10 @@ public class RoleCustomerImplement implements RoleCustomer {
 
 
 
-
-
-
     @Override
     public void viewContract() {
-        // Tìm kiếm customer tương ứng với userId
-        usersLogin = IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
+
+
         Customer currentUser = customerList.stream().filter(customer -> customer.getUserID() == usersLogin.getUserId()).findFirst().orElse(null);
 
         if (currentUser == null) {
@@ -144,18 +142,18 @@ public class RoleCustomerImplement implements RoleCustomer {
             return;
         }
 
-        // Lọc danh sách hợp đồng dựa trên customerId
+
         List<Contract> userContracts = contractList.stream()
                 .filter(contract -> contract.getCustomerId() == currentUser.getCustomerId())
                 .toList();
 
-        // Nếu không tìm thấy hợp đồng nào, in thông báo và thoát
+
         if (userContracts.isEmpty()) {
             System.out.println("DANH SÁCH hợp đồng của bạn rỗng.");
             return;
         }
 
-        // Hiển thị thông tin các hợp đồng
+
         userContracts.forEach(Contract::displayData);
     }
 
@@ -163,8 +161,6 @@ public class RoleCustomerImplement implements RoleCustomer {
 
     @Override
     public void viewProject() {
-        usersLogin = IOFile.readFromToUser(IOFile.USERLOGIN_PATH);
-        // tìm kiếm customer tương ứng với userId
         Customer currentUser = customerList.stream()
                 .filter(customer -> customer.getUserID() ==  usersLogin.getUserId())
                 .findFirst()
@@ -185,7 +181,7 @@ public class RoleCustomerImplement implements RoleCustomer {
             return;
         }
 
-        //  danh sách dự án dựa trên contractId và hiển thị thông tin
+        //  danh sách dự án dựa trên contractid và hiển thị thông tin
         userContracts.forEach(contract -> {
             projectList.stream()
                     .filter(project -> project.getContractId() == contract.getContractId())

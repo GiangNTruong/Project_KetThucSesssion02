@@ -25,12 +25,16 @@ public class Contract implements Serializable {
     private LocalDate expiryDate;
     private double totalAmount;
     private String description;
+    private boolean status;
+
+
+
     private int priority;
 
     public Contract() {
     }
 
-    public Contract(int contractId, String contractName, int employeeId, int customerId, LocalDate createdDate, LocalDate expiryDate, double totalAmount, String description, int priority) {
+    public Contract(int contractId, String contractName, int employeeId, int customerId, LocalDate createdDate, LocalDate expiryDate, double totalAmount, String description, boolean status, int priority) {
         this.contractId = contractId;
         this.contractName = contractName;
         this.employeeId = employeeId;
@@ -39,9 +43,17 @@ public class Contract implements Serializable {
         this.expiryDate = expiryDate;
         this.totalAmount = totalAmount;
         this.description = description;
+        this.status = status;
         this.priority = priority;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
     public int getContractId() {
         return contractId;
     }
@@ -176,6 +188,9 @@ public class Contract implements Serializable {
             }
         }
     }
+    public void inputStatusContract(){
+        this.status = InputMethods.getBoolean();
+    }
 
     public void inputDescription() {
         this.description = InputMethods.getString();
@@ -222,12 +237,12 @@ public class Contract implements Serializable {
         String employeeName = employee != null ? employee.getEmployeeName() : "N/A";
 
 
-        System.out.printf("Mã hợp đồng: %d | Tên hợp đồng: %s | Nhân viên phụ trách: %d - %s | Khách hàng: %d - %s | Ngày kí: %s | Ngày hết hạn: %s | Tổng tiền: %s | Mô tả: %s | Độ ưu tiên: %d - %s |\n",
+        System.out.printf("Mã hợp đồng: %d | Tên hợp đồng: %s | Nhân viên phụ trách: %d - %s | Khách hàng: %d - %s | Ngày kí: %s | Ngày hết hạn: %s | Tổng tiền: %s | Mô tả: %s | Trạng thái: %s | Độ ưu tiên: %d - %s |\n",
                 contractId, contractName, employeeId,employeeName, customerId, customerName,
                 (createdDate != null ? createdDate.format(dtf) : "N/A"),
                 (expiryDate != null ? expiryDate.format(dtf) : "N/A"),
                 formattedTotalAmount,
-                description,
+                description,(status ? "Hoạt động" : "Không hoạt động"),
                 priorityContractInt, priorityContract);
     }
 

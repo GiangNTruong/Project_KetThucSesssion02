@@ -2,6 +2,7 @@ package business.entity;
 
 
 
+import business.utils.IOFile;
 import business.utils.InputMethods;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
-
+import static business.designImpl.ManageDepartmentImpl.departmentList;
 
 public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -108,20 +109,20 @@ public class Employee implements Serializable {
     // Phương thức để nhập mã phòng ban
     public int inputDepartmentId(List<Department> departmentList) {
         do {
-            // Hiển thị danh sách phòng ban
+            // hiển thị danh sách phòng ban
             System.out.println("Danh sách phòng ban:");
             for (int i = 0; i < departmentList.size(); i++) {
                 System.out.println((i + 1) + ". " + departmentList.get(i).getDepartmentName());
             }
-            // Yêu cầu người dùng nhập mã phòng ban
+
             System.out.println("Nhập mã phòng ban:");
             int inputId = InputMethods.getInteger();
-            // Kiểm tra xem mã phòng ban có hợp lệ không
+            // kiểm tra xem mã phòng ban có hợp lệ không
             if (isValidDepartmentId(departmentList, inputId)) {
-                // Nếu hợp lệ, trả về mã phòng ban
+                // hợp lệ trả về mã phòng ban
                 return inputId;
             } else {
-                // Nếu không hợp lệ, yêu cầu người dùng nhập lại và thông báo rằng mã ID không tồn tại
+                // nếu không hợp lệ yêu cầu người dùng nhập lại và thông báo rằng mã ID không tồn tại
                 System.out.println("Mã ID không tồn tại. Nhập lại:");
             }
         } while (true);
@@ -145,8 +146,6 @@ public class Employee implements Serializable {
 //        byte newDepartmentId = InputMethods.getByte();
 //        employee.setDepartmentId(inputDepartmentId(departmentList));
 //    }
-
-
 
     public void displayData() {
         DecimalFormat formatter = new DecimalFormat("###,###,###");

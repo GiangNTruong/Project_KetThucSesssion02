@@ -5,4 +5,5 @@ public interface IGenericDesign <T,E> {
     void displayAllList();
     void update();
     T findById(E id);
+
 }

@@ -3,7 +3,18 @@ package presentation;
 import business.design.*;
 
 import business.designImpl.*;
+import business.entity.Contract;
+import business.entity.Department;
+import business.entity.Employee;
+import business.utils.IOFile;
 import business.utils.InputMethods;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static business.designImpl.ManageContractImpl.contractList;
+import static business.designImpl.ManageDepartmentImpl.departmentList;
+import static business.designImpl.ManageEmployeeImplement.employeeList;
 
 public class MenuManger {
     static RoleAdmin roleAdmin = new RoleAdminImplement();
@@ -94,6 +105,16 @@ public class MenuManger {
             }
         }
     }
+    private void displayAllDepartments(){
+        for(Department department : departmentList){
+            System.out.println("Department ID: " + department.getDepartmentID());
+            System.out.println("Department Name: " + department.getDepartmentName());
+            System.out.println("-------------------------");
+        }
+    }
+
+
+
     private void displayMenuEmployee() {
       while (true){
           System.out.println("====================");

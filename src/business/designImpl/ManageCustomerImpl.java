@@ -173,8 +173,6 @@ public class ManageCustomerImpl implements ManagerCustomer {
     public void searchCustomerByName() {
         System.out.println("Nhap ten khach hàng bạn muốn tìm");
         String searchCustomerName = InputMethods.getString();
-
-        //TÌm danh sách theo tên
         List<Customer> filterCustomer = customerList.stream()
                 .filter(customer -> customer.getCustomerName().toLowerCase().contains(searchCustomerName.toLowerCase()))
                 .toList();

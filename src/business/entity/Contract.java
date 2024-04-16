@@ -12,6 +12,7 @@ import java.util.List;
 
 import static business.designImpl.ManageCustomerImpl.customerList;
 import static business.designImpl.ManageEmployeeImplement.employeeList;
+import static business.designImpl.ManageContractImpl.contractList;
 
 
 public class Contract implements Serializable {
@@ -127,8 +128,23 @@ public class Contract implements Serializable {
     }
 
     public void inputContractId() {
+        int contractId ;
+        while (true){
+            contractId = InputMethods.getByte();
+            boolean check = false;
+            for (Contract contract : contractList){
+                if (contract.getContractId()==contractId){
+                    check = true;
+                    break;
+                }
+            }
+            if (check){
+                System.out.println("Id đã tồn tại");
+            }else {
+                this.contractId = contractId;
+            }
+        }
 
-        this.contractId = InputMethods.getInteger();
     }
 
     public void inputContractName() {
@@ -196,29 +212,6 @@ public class Contract implements Serializable {
         this.description = InputMethods.getString();
     }
 
-//    public void inputPriority() {
-//        System.out.println("Chọn độ ưu tiên (càng cao thì được ưu tiên hơn):");
-//        System.out.println("1. Dự án cấp 1");
-//        System.out.println("2. Dự án cấp 2");
-//        System.out.println("3. Dự án cấp 3");
-//        int priorityChoice = InputMethods.getInteger();
-//
-//        switch (priorityChoice) {
-//            case 1:
-//                this.priority = 1;
-//                break;
-//            case 2:
-//                this.priority = 2;
-//                break;
-//            case 3:
-//                this.priority = 3;
-//                break;
-//            default:
-//                System.out.println("Lựa chọn không hợp lệ. Độ ưu tiên mặc định là 1.");
-//                this.priority = 3;
-//                break;
-//        }
-//    }
 
     public void displayData() {
         DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -257,7 +250,7 @@ public class Contract implements Serializable {
             return "Không xác định";
         }
     }
-    private int getPriorityContractInt() {
+    public int getPriorityContractInt() {
         if (totalAmount >0 && totalAmount <= 200000000) {
             return 1;
         } else if (totalAmount > 200000000 && totalAmount <= 500000000) {
@@ -284,3 +277,26 @@ public class Contract implements Serializable {
 
 
 }
+//    public void inputPriority() {
+//        System.out.println("Chọn độ ưu tiên (càng cao thì được ưu tiên hơn):");
+//        System.out.println("1. Dự án cấp 1");
+//        System.out.println("2. Dự án cấp 2");
+//        System.out.println("3. Dự án cấp 3");
+//        int priorityChoice = InputMethods.getInteger();
+//
+//        switch (priorityChoice) {
+//            case 1:
+//                this.priority = 1;
+//                break;
+//            case 2:
+//                this.priority = 2;
+//                break;
+//            case 3:
+//                this.priority = 3;
+//                break;
+//            default:
+//                System.out.println("Lựa chọn không hợp lệ. Độ ưu tiên mặc định là 1.");
+//                this.priority = 3;
+//                break;
+//        }
+//    }

@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import static business.designImpl.ManageContractImpl.contractList;
 import static business.designImpl.ManageEmployeeImplement.employeeList;
+import static business.designImpl.ManageProjectImpl.projectList;
 
 public class Project implements Serializable {
 
@@ -124,8 +125,18 @@ public class Project implements Serializable {
     }
 
     public void inputProjectId() {
-        this.projectId = InputMethods.getInteger();
+        while (true) {
+            int projectId = InputMethods.getInteger();
+            if (projectList.stream().anyMatch(project -> project.getProjectId()==projectId)) {
+                System.out.println("ProjectId đã tồn tại, vui lòng nhập lại!");
+            } else {
+                this.projectId = projectId;
+                break;
+            }
+        }
     }
+
+
 
     public void inputProjectName() {
 
@@ -205,7 +216,12 @@ public class Project implements Serializable {
 
         //Tìm kiếm theo employee làm leader
         Employee employee = employeeList.stream().filter(e->e.getEmployeeId()==this.leaderId).findFirst().orElse(null);
-        String employeeName = employee!=null?employee.getEmployeeName():"N/A";
+        String employeeName;
+        if (employee!=null){
+            employeeName=employee.getEmployeeName();
+        }else {
+            employeeName="n/A";
+        }
         System.out.printf("Mã dự án: %d | Tên dự án: %s | Hợp đồng: %d - %s | Người trưởng dự án: %d - %s | Số lượng thành viên: %d | Ngày bắt đầu: %s | Ngày kết thúc: %s | Trạng thái: %s | Mô tả: %s | Công nghệ: %s\n",
                 projectId,
                 projectName,

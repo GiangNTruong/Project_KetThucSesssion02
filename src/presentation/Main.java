@@ -7,6 +7,9 @@ import business.entity.Users;
 import business.utils.IOFile;
 import business.utils.InputMethods;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
@@ -25,6 +28,7 @@ public class Main {
     private static Loginout loginAccount = new RoleCustomerImplement();
     public static Users userPrincipal = null;
     public static void main(String[] args) {
+
 //        List<Users> users = IOFile.readFromFile(IOFile.USER_PATH);
 //
 //        // Kiểm tra xem tài khoản admin đã tồn tại chưa
@@ -43,10 +47,10 @@ public class Main {
 
         // Đọc thông tin người dùng đã lưu từ tệp
         while (true) {
-            System.out.println(ANSI_BLACK + WHITE_BG+" =================MENU====================="+ANSI_RESET);
-            System.out.println(ANSI_BLACK +WHITE_BG+" 1. Đăng nhập \u001B[0m"+ANSI_RESET);
-            System.out.println(ANSI_BLACK +WHITE_BG+" 2. Thoát \u001B[0m"+ANSI_RESET);
-            System.out.println(ANSI_BLACK +WHITE_BG+"Nhập chức năng : "+ANSI_RESET);
+            System.out.println( " =================MENU=====================");
+            System.out.println( " 1. Đăng nhập ");
+            System.out.println( " 2. Thoát ");
+            System.out.println( "Nhập chức năng : ");
 
             byte choice = InputMethods.getByte();
             switch (choice){

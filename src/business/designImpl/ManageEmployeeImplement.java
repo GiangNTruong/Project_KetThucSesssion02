@@ -1,6 +1,7 @@
 package business.designImpl;
 
 import business.design.ManageEmployee;
+import business.entity.Department;
 import business.entity.Employee;
 import business.utils.IOFile;
 import business.utils.InputMethods;
@@ -99,8 +100,6 @@ public class ManageEmployeeImplement implements ManageEmployee {
     public void searchEmployeeByName() {
         System.out.println("Nhập tên nhân viên bạn muốn tìm: ");
         String searchEmployee = InputMethods.getString();
-
-        // Tìm danh sách nhân viên theo tên
         List<Employee> filteredEmployees = employeeList.stream()
                 .filter(employee -> employee.getEmployeeName().toLowerCase().contains(searchEmployee.toLowerCase()))
                 .toList();

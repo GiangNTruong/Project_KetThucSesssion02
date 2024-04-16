@@ -9,7 +9,9 @@ import business.utils.InputMethods;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static business.designImpl.ManageCustomerImpl.customerList;
 import static business.designImpl.ManageEmployeeImplement.employeeList;
@@ -35,7 +37,6 @@ public class ManageContractImpl implements ManagerContract {
             System.err.println("Chưa có khách hàng nhận hợp đồng , thêm mới khách hàng trước ");
             return;
         }
-
         System.out.println("Nhập số lượng hợp đồng bạn muốn thêm mới");
         byte n = InputMethods.getByte();
         for (int i = 0; i < n; i++) {
@@ -64,13 +65,21 @@ public class ManageContractImpl implements ManagerContract {
 
     @Override
     public void displayAllList() {
-        contractList = IOFile.readFromFile(IOFile.CONTRACT_PATH);
-        if (contractList==null||contractList.isEmpty()){
+        if (contractList == null || contractList.isEmpty()) {
             System.err.println("Không có hợp đồng nào để hiển thị");
             return;
         }
-        System.out.println("Danh sách hợp đông");
-        for (Contract contract:contractList){
+        for (int i = 0; i < contractList.size()-1; i++) {
+            for (int j = 0; j <contractList.size()-i-1 ; j++) {
+                if (contractList.get(j).getPriorityContractInt()>contractList.get(j+1).getPriorityContractInt()){
+                    Contract temp = contractList.get(j);
+                    contractList.set(j,contractList.get(j+1));
+                    contractList.set(j+1,temp);
+                }
+            }
+        }
+        System.out.println("Danh sách hợp đồng");
+        for (Contract contract : contractList) {
             contract.displayData();
         }
     }
@@ -191,3 +200,4 @@ public class ManageContractImpl implements ManagerContract {
         System.out.println("Cập nhật trạng thái thành công");
     }
 }
+// contractList.sort(Comparator.comparing(Contract::getPriorityContractInt));

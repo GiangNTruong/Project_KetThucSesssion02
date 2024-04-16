@@ -59,6 +59,7 @@ public class ManageProjectImpl implements ManageProject {
             System.err.println("Không có dự án nào để hiển thị");
             return;
         }
+
         System.out.println("Danh sách dự án ");
         for (Project project:projectList){
             project.displayData();
